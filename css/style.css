@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#piano {
+    margin: 50px auto;
+    position: relative;
+    opacity: 0.2;
+}
+
+.pianokey {
+    border: 1px solid #999;
+    cursor: pointer;
+    display: inline-block;
+    height: 240px;
+    width: calc(100% / 50 - 2px);
+    width: -webkit-calc(100% / 8 - 2px);
+    text-align: center;
+    vertical-align: text-bottom;
+}
+
+.sharp {
+    background-color: black;
+    color: white;
+    height: 120px;
+    margin-left: -4%;
+    position: absolute;
+    width: 8%;
+}
+
+.dleft {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+.dright {
+    display: block;
+    float: right;
+    width: 50%;
+    text-align: right;
+}
+
+button {
+    font-size: 120%;
+}
+
+td.ok {
+    background-color: #98dbcc;
+}
+td.ng {
+    background-color: #f29f97;
+}
