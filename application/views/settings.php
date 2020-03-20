@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <h5 class="card-title mb-2">新しい生徒の読み込み</h5>
                             <p class="card-text">新しく追加された生徒の設定を読み込むには下のボタンを押してください。<br>
                                 リンク先のページが読み込み終わったら、そのページは閉じて、この画面に戻ってください。</p>
-                            <a href="<?php echo base_url('enter/aroundregi'); ?>" class="card-link" target="_blank">生徒の設定を読み込む</a>
+                            <a href="<?php echo base_url('enter/aroundregi'); ?>" class="card-link" target="_blank" data-target="#aroundregi">生徒の設定を読み込む</a>
                         </div>
                     </div>
                 </div>
