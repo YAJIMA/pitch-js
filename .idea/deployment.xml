@@ -2,13 +2,6 @@
 <project version="4">
   <component name="PublishConfigData" serverName="ichionkai.jp">
     <serverData>
-      <paths name="code.hatchbit.jp">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="ichionkai.jp">
         <serverdata>
           <mappings>

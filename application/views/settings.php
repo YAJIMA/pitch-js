@@ -54,8 +54,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">新しい生徒の読み込み</h5>
+                            <p class="card-text">新しく追加された生徒の設定を読み込むには下のボタンを押してください。<br>
+                                リンク先のページが読み込み終わったら、そのページは閉じて、この画面に戻ってください。</p>
+                            <a href="<?php echo base_url('enter/aroundregi'); ?>" class="card-link" target="_blank">生徒の設定を読み込む</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        その他、取り扱い説明書は、下のリンクからご確認ください。<br>
+                    </p>
+                    <a href="https://docs.google.com/document/d/1ZOhbvsK1doVc-ecKaxXjEDydwP_rLyJQ_XMLrXMwaRc/edit?usp=sharing" target="_blank" >テストマニュアル</a>
+                </div>
+            </div>
         </main>
     </div>
 </div>

@@ -2,14 +2,6 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="58e4e8d5-c579-4df4-b556-5e76f07169dd" name="code.hatchbit.jp" url="http://code.hatchbit.jp/tunejs">
-        <fileTransfer host="code.hatchbit.jp" port="21" rootFolder="/public_html/_domains/code.hatchbit.jp/tunejs" accessType="FTPS">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" />
-          </advancedOptions>
-          <option name="port" value="21" />
-        </fileTransfer>
-      </webServer>
       <webServer id="ae871b4f-df62-4bb5-8017-5348848aa762" name="ichionkai.jp" url="http://ichionkai.jp">
         <fileTransfer host="ftp505.heteml.jp" port="21" rootFolder="/ichionkai.jp">
           <advancedOptions>
