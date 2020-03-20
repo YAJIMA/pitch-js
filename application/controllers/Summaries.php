@@ -30,7 +30,7 @@ class Summaries extends CI_Controller
         {
             $this->data['nendo_1'] = date('Ymd', strtotime('first day of april last year')).'t000000';
             $this->data['nendo_0'] = date('Ymd', strtotime('last day of march this year')).'t235959';
-            $this->data['sakunendo_1'] = date('Ymd', strtotime('first day of april -2 year')).'t000000';
+            $this->data['sakunendo_1'] = date('Ymd', strtotime(sprintf('%s-%s-%s', date('Y')-2, '4', '1'))).'t000000';
             $this->data['sakunendo_0'] = date('Ymd', strtotime('last day of march last year')).'t235959';
         }
         else
