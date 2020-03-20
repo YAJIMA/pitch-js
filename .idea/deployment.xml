@@ -12,7 +12,7 @@
       <paths name="ichionkai.jp">
         <serverdata>
           <mappings>
-            <mapping deploy="/pitchtest" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/pitchtest" local="$PROJECT_DIR$" web="/pitchtest" />
           </mappings>
           <excludedPaths>
             <excludedPath path="/pitchtest/application/sessions" />

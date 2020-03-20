@@ -73,25 +73,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
     <div class="row justify-content-center">
+        <?php if ($is_pro === FALSE) : ?>
         <?php if ($result == "ok") : ?>
         <div class="col-sm-6 text-center" id="result">
-            <img src="<?php echo base_url('img/animal_quiz_usagi_maru.png'); ?>" height="200">
+            <img src="<?php echo base_url('img/cat1_smile.png'); ?>" height="200">
             <p class="alert alert-success">せいかい</p>
+            <p>&nbsp;</p>
             <p>そのちょうし！がんばって！</p>
         </div>
         <?php elseif ($result == "ng") : ?>
         <div class="col-sm-6 text-center" id="result">
-            <img src="<?php echo base_url('img/animal_quiz_usagi_batsu.png'); ?>" height="200">
+            <img src="<?php echo base_url('img/cat3_1_question.png'); ?>" height="200">
             <p class="alert alert-danger">まちがい</p>
+            <?php if ( ! empty($last_mondai_text) && $is_pro === FALSE) : ?>
+                <p style="font-size: 320%;">せいかいは、<span style="font-style: 220%;"><?php echo $last_mondai_text; ?></span></p>
+                <a href="#" class="btn btn-lg btn-warning mb-3" id="play_last_mondai">もういちどきく</a>
+            <?php endif; ?>
+            <p>&nbsp;</p>
             <p>つぎのもんだいをよくきいて</p>
         </div>
+        <?php endif; ?>
         <?php endif; ?>
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-6 text-center">
             <h3>もんだい.<?php echo count($this->session->score) + 1; ?></h3>
             <a href="#" class="btn btn-lg btn-danger mb-3" id="play_mondai">もんだいをきく</a>
-            <p id="mondai_help_text">うえのボタンをおして、もんだいをきこう。</p>
+            <p id="mondai_help_text">ボタンをおして、もんだいをきこう。</p>
         </div>
     </div>
     <div id="answer_area" class="collapse fade">
@@ -122,6 +130,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <?php endif; ?>
     <?php endforeach; ?>
+        <div class="row justify-content-center">
+            <div class="col-sm-6 text-center">
+                <button type="submit" name="ans" value="wakaranai" class="btn btn-block btn-warning">わからない</button>
+            </div>
+        </div>
     <?php echo form_close(); ?>
     </div>
 </div>
@@ -138,11 +151,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- /Bootstrap -->
 
 <script type="text/javascript">
-    var mondai_audio = document.getElementById('audio-<?php echo $mondai; ?>');
-    var play_button = document.getElementById('play_mondai');
-    var answer_area = document.getElementById('answer_area');
-    var result_area = document.getElementById('result');
+    const mondai_audio = document.getElementById('audio-<?php echo $mondai; ?>');
+    const last_mondai_audio = document.getElementById('audio-<?php echo $last_mondai; ?>');
+    const play_button = document.getElementById('play_mondai');
+    const play_last_button = document.getElementById('play_last_mondai');
+    const answer_area = document.getElementById('answer_area');
+    const result_area = document.getElementById('result');
 
+    // 問題を聞くボタンを押す
+    play_button.addEventListener('click', function () {
+        play_mondai();
+    }, false);
+
+    // 間違えた問題を聞くボタンを押す
+    play_last_button.addEventListener('click', function () {
+        play_last_mondai();
+    }, false);
+
+    // 問題再生
     function play_mondai() {
         $('#mondai_help_text').text("もんだいをきいてね。");
 
@@ -150,25 +176,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         mondai_audio.play();
 
         // 解答欄をアクティブ
-        mondai_audio.addEventListener("ended", function() {
+        mondai_audio.addEventListener("play", sleep(1, function (){
             $('#mondai_help_text').text("うえのボタンをおして、もんだいをきこう。");
-            answer_area.setAttribute('class','collapse show fade');
+            answer_area.setAttribute('class','collapse show fadein');
+        }), false);
+
+        // 問題は1回だけ聞ける（再生ボタンを隠す）
+        mondai_audio.addEventListener("ended", function () {
+            play_button.setAttribute('aria-disabled', 'true');
+            play_button.setAttribute('class', 'btn btn-lg btn-danger mb-3 disabled');
         }, false);
+    }
+
+    // 間違い再生
+    function play_last_mondai() {
+
+        // 音を再生
+        last_mondai_audio.play();
 
     }
 
-    play_button.addEventListener('click', function () {
-        play_mondai();
-    }, false);
 
     /* bootstrap alertをx秒後に消す */
     $(document).ready(function()
     {
+        // 音をロード
+        mondai_audio.load();
+        last_mondai_audio.load();
+
         $(window).on('load',function()
         {
-            window.setTimeout("$('#result').fadeOut()", 1500);
+            //window.setTimeout("$('#result').fadeOut()", 1500);
         });
+
     });
+
+    // setIntervalを使う方法
+    function sleep(waitSec, callbackFunc) {
+
+        // 経過時間（秒）
+        var spanedSec = 0;
+
+        // 1秒間隔で無名関数を実行
+        var id = setInterval(function () {
+
+            spanedSec++;
+
+            // 経過時間 >= 待機時間の場合、待機終了。
+            if (spanedSec >= waitSec) {
+
+                // タイマー停止
+                clearInterval(id);
+
+                // 完了時、コールバック関数を実行
+                if (callbackFunc) callbackFunc();
+            }
+        }, 1000);
+
+    }
 </script>
 </body>
 </html>

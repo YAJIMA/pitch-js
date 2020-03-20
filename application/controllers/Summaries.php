@@ -30,11 +30,15 @@ class Summaries extends CI_Controller
         {
             $this->data['nendo_1'] = date('Ymd', strtotime('first day of april last year')).'t000000';
             $this->data['nendo_0'] = date('Ymd', strtotime('last day of march this year')).'t235959';
+            $this->data['sakunendo_1'] = date('Ymd', strtotime('first day of april -2 year')).'t000000';
+            $this->data['sakunendo_0'] = date('Ymd', strtotime('last day of march last year')).'t235959';
         }
         else
         {
             $this->data['nendo_1'] = date('Ymd', strtotime('first day of april this year')).'t000000';
             $this->data['nendo_0'] = date('Ymd', strtotime('last day of march next year')).'t235959';
+            $this->data['sakunendo_1'] = date('Ymd', strtotime('first day of april last year')).'t000000';
+            $this->data['sakunendo_0'] = date('Ymd', strtotime('last day of march this year')).'t235959';
         }
     }
 
@@ -52,8 +56,12 @@ class Summaries extends CI_Controller
 
         $this->data['results'] = $results;
 
-        $this->data['start_date'] = date('Y年m月d日 H時i分s秒', $starttime);
-        $this->data['end_date'] = date('Y年m月d日 H時i分s秒', $endtime);
+        $this->data['start_date'] = date('Y年 n月 j日 H時 i分 s秒', $starttime);
+        $this->data['end_date'] = date('Y年 n月 j日 H時 i分 s秒', $endtime);
+
+        $page_title = "集計";
+
+        $this->data['page_title'] = $page_title;
 
         $this->load->view('_head');
         $this->load->view('_header');
@@ -69,6 +77,17 @@ class Summaries extends CI_Controller
         $results = $this->Tests_model->find_results($param, $orders, $line, $index);
 
         $this->data['results'] = $results;
+
+        $page_title = "生徒ごとの集計 - ";
+        if ( ! empty($results[0]['realname']))
+        {
+            $page_title .= $results[0]['realname'];
+        }
+        else
+        {
+            $page_title .= $results[0]['user_name'];
+        }
+        $this->data['page_title'] = $page_title;
 
         $this->load->view('_head');
         $this->load->view('_header');
@@ -86,8 +105,12 @@ class Summaries extends CI_Controller
 
         $this->data['results'] = $results;
 
-        $this->data['start_date'] = date('Y年m月d日 H時i分s秒', $starttime);
-        $this->data['end_date'] = date('Y年m月d日 H時i分s秒', $endtime);
+        $this->data['start_date'] = date('Y年 n月 j日 H時 i分 s秒', $starttime);
+        $this->data['end_date'] = date('Y年 n月 j日 H時 i分 s秒', $endtime);
+
+        $page_title = "日付集計";
+
+        $this->data['page_title'] = $page_title;
 
         $this->load->view('_head');
         $this->load->view('_header');

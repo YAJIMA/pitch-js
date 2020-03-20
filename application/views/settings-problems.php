@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </thead>
                 <tbody>
                 <?php foreach ($users as $user) : ?>
-                <tr>
+                <tr id="row_user_id_<?php echo $user['id']; ?>">
                     <td>
                         <?php echo ( ! empty($user['realname'])) ? $user['realname'] : "(未設定)"; ?>
                         <span class="text-info" ><?php echo $user['name']; ?></span><br>
@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <h4 class="modal-title">問題設定</h4>
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     </div>
-                                    <?php echo form_open('settings/problems','',array('user_id'=>$user['id'])); ?>
+                                    <?php echo form_open('settings/problems#row_user_id_'.$user['id'],'',array('user_id'=>$user['id'])); ?>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <?php foreach ($tests as $test) : ?>
