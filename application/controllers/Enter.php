@@ -67,8 +67,8 @@ class Enter extends CI_Controller
         $this->load->helper('directory');
 
         // $dir = '/home/sites/heteml/users/i/c/h/ichionkai/web/ichionkai.jp/drp/user';
-        $dir = dirname( dirname(APPPATH)) . DIRECTORY_SEPARATOR . "drp" . DIRECTORY_SEPARATOR . "user";
-        echo $dir . PHP_EOL;
+        $dir = dirname( dirname(APPPATH)) . DIRECTORY_SEPARATOR . "new_drp" . DIRECTORY_SEPARATOR . "user";
+        echo $dir . '<br>' . PHP_EOL;
 
         $directory_map = directory_map($dir, 2,TRUE);
         // echo print_r($directory_map); exit();
@@ -126,7 +126,12 @@ class Enter extends CI_Controller
 
         $result = $this->Users_model->find();
 
-        echo print_r($result);
+        // echo print_r($result);
+        foreach ($result as $res)
+        {
+            echo 'ID.' . $res['id'] . ', name : ' . $res['name'] . ', directory : ' . $res['directory'] . ', filepath : ' . $res['filepath'] . '<br>' . PHP_EOL;
+        }
 
+        echo '終了' . '<br>' . PHP_EOL;
     }
 }

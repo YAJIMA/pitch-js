@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="<?php echo base_url('css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('css/style.css') . '?v=' . time(); ?>">
 
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru|M+PLUS+Rounded+1c&amp;subset=japanese" rel="stylesheet">
@@ -73,25 +73,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
     <div class="row justify-content-center">
+        <?php if ($is_pro === FALSE) : ?>
         <?php if ($result == "ok") : ?>
         <div class="col-sm-6 text-center" id="result">
-            <img src="<?php echo base_url('img/animal_quiz_usagi_maru.png'); ?>" height="200">
+            <img src="<?php echo base_url('img/cat1_smile.png'); ?>" height="200">
             <p class="alert alert-success">せいかい</p>
             <p>そのちょうし！がんばって！</p>
         </div>
         <?php elseif ($result == "ng") : ?>
-        <div class="col-sm-6 text-center" id="result">
-            <img src="<?php echo base_url('img/animal_quiz_usagi_batsu.png'); ?>" height="200">
+        <div class="col-sm-3 text-center" id="result">
+            <img src="<?php echo base_url('img/cat3_1_question.png'); ?>" height="200">
             <p class="alert alert-danger">まちがい</p>
+        </div>
+        <div class="col-sm-6 text-center">
+            <?php if ( ! empty($last_mondai_text) && $is_pro === FALSE) : ?>
+                <p style="font-size: 320%;">せいかいは、<span style="font-style: 220%;"><?php echo $last_mondai_text; ?></span></p>
+                <a href="#" class="btn btn-lg btn-warning mb-3" id="play_last_mondai">もういちどきく</a>
+            <?php endif; ?>
             <p>つぎのもんだいをよくきいて</p>
         </div>
+        <?php endif; ?>
         <?php endif; ?>
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-6 text-center">
             <h3>もんだい.<?php echo count($this->session->score) + 1; ?></h3>
             <a href="#" class="btn btn-lg btn-danger mb-3" id="play_mondai">もんだいをきく</a>
-            <p id="mondai_help_text">うえのボタンをおして、もんだいをきこう。</p>
+            <p id="mondai_help_text">ボタンをおして、もんだいをきこう。</p>
         </div>
     </div>
     <div id="answer_area" class="collapse fade">
@@ -104,24 +112,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php foreach ($octaves as $octave) : ?>
         <?php if ($this_octave == $octave) : ?>
         <div class="row">
-            <h3>オクターブ&nbsp;<?php echo $octave; ?></h3>
+            <h3 style="font-size: 14px;">オクターブ&nbsp;<?php echo $octave; ?></h3>
         </div>
         <div class="row mb-3">
-            <div class="col-sm-1"><button type="submit" name="ans" value="do<?php echo $octave; ?>" class="btn btn-block btn-secondary">ド</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="cis<?php echo $octave; ?>" class="btn btn-block btn-dark">チス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="re<?php echo $octave; ?>" class="btn btn-block btn-secondary">レ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="es<?php echo $octave; ?>" class="btn btn-block btn-dark">エス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="mi<?php echo $octave; ?>" class="btn btn-block btn-secondary">ミ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="fa<?php echo $octave; ?>" class="btn btn-block btn-secondary">ファ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="fis<?php echo $octave; ?>" class="btn btn-block btn-dark">フィス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="so<?php echo $octave; ?>" class="btn btn-block btn-secondary">ソ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="gis<?php echo $octave; ?>" class="btn btn-block btn-dark">ギス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="la<?php echo $octave; ?>" class="btn btn-block btn-secondary">ラ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="b<?php echo $octave; ?>" class="btn btn-block btn-dark">ベー</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="si<?php echo $octave; ?>" class="btn btn-block btn-secondary">シ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="do<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ド</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="cis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">チス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="re<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">レ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="es<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">エス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="mi<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ミ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="fa<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ファ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="fis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">フィス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="so<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ソ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="gis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">ギス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="la<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ラ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="b<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">ベー</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="si<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">シ</button></div>
         </div>
         <?php endif; ?>
     <?php endforeach; ?>
+        <div class="row justify-content-center">
+            <div class="col-sm-6 text-center">
+                <button type="submit" name="ans" value="wakaranai" class="btn btn-block btn-warning">わからない</button>
+            </div>
+        </div>
     <?php echo form_close(); ?>
     </div>
 </div>
@@ -138,11 +151,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- /Bootstrap -->
 
 <script type="text/javascript">
-    var mondai_audio = document.getElementById('audio-<?php echo $mondai; ?>');
-    var play_button = document.getElementById('play_mondai');
-    var answer_area = document.getElementById('answer_area');
-    var result_area = document.getElementById('result');
+    const mondai_audio = document.getElementById('audio-<?php echo $mondai; ?>');
+    const last_mondai_audio = document.getElementById('audio-<?php echo $last_mondai; ?>');
+    const play_button = document.getElementById('play_mondai');
+    const play_last_button = document.getElementById('play_last_mondai');
+    const answer_area = document.getElementById('answer_area');
+    const result_area = document.getElementById('result');
 
+    // 問題を聞くボタンを押す
+    play_button.addEventListener('click', function () {
+        play_mondai();
+    }, false);
+
+    // 間違えた問題を聞くボタンを押す
+    play_last_button.addEventListener('click', function () {
+        play_last_mondai();
+    }, false);
+
+    // 問題再生
     function play_mondai() {
         $('#mondai_help_text').text("もんだいをきいてね。");
 
@@ -150,25 +176,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         mondai_audio.play();
 
         // 解答欄をアクティブ
-        mondai_audio.addEventListener("ended", function() {
+        mondai_audio.addEventListener("play", sleep(1, function (){
             $('#mondai_help_text').text("うえのボタンをおして、もんだいをきこう。");
-            answer_area.setAttribute('class','collapse show fade');
+            answer_area.setAttribute('class','collapse show fadein');
+        }), false);
+
+        // 問題は1回だけ聞ける（再生ボタンを隠す）
+        mondai_audio.addEventListener("ended", function () {
+            play_button.setAttribute('aria-disabled', 'true');
+            play_button.setAttribute('class', 'btn btn-lg btn-danger mb-3 disabled');
         }, false);
+    }
+
+    // 間違い再生
+    function play_last_mondai() {
+
+        // 音を再生
+        last_mondai_audio.play();
 
     }
 
-    play_button.addEventListener('click', function () {
-        play_mondai();
-    }, false);
 
     /* bootstrap alertをx秒後に消す */
     $(document).ready(function()
     {
+        // 音をロード
+        mondai_audio.load();
+        last_mondai_audio.load();
+
         $(window).on('load',function()
         {
-            window.setTimeout("$('#result').fadeOut()", 1500);
+            //window.setTimeout("$('#result').fadeOut()", 1500);
         });
+
     });
+
+    // setIntervalを使う方法
+    function sleep(waitSec, callbackFunc) {
+
+        // 経過時間（秒）
+        var spanedSec = 0;
+
+        // 1秒間隔で無名関数を実行
+        var id = setInterval(function () {
+
+            spanedSec++;
+
+            // 経過時間 >= 待機時間の場合、待機終了。
+            if (spanedSec >= waitSec) {
+
+                // タイマー停止
+                clearInterval(id);
+
+                // 完了時、コールバック関数を実行
+                if (callbackFunc) callbackFunc();
+            }
+        }, 1000);
+
+    }
 </script>
 </body>
 </html>
