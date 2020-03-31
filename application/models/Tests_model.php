@@ -94,7 +94,7 @@ class Tests_model extends CI_Model
 
         foreach ($results as &$item)
         {
-            $item['date_format'] = date('Y年m月d日 H時i分s秒', $item['datetime']);
+            $item['date_format'] = date('Y年 n月 j日 H時 i分 s秒', $item['datetime']);
             $item['result_raw'] = unserialize($item['results']);
         }
 
