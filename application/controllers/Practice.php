@@ -47,13 +47,39 @@ class Practice extends CI_Controller
 
     }
 
+    public function testmail()
+    {
+        $this->load->helper('email');
+        $this->data['settings'] = $settings = $this->Settings_model->load();
+        echo print_r($settings, true);
+        // テスト結果をメール送信
+        if (isset($settings['admin_email']))
+        {
+            $subject = 'メール件名テスト '.date('Y-m-d H:i:s');
+            $body = 'メール本文（テスト）';
+
+            if (HBsendMail($settings['admin_email'], $subject, $body, 'noreply@ichionkai.jp', '音感テスト'))
+            {
+                echo 'ok.';
+            }
+            else
+            {
+                echo 'false.';
+            }
+        }
+
+        echo 'mail sender';
+    }
+
     public function end1()
     {
         $this->load->helper('email');
+        $this->data['settings'] = $settings = $this->Settings_model->load();
 
         // テスト結果をDBに登録
         $score = 0;
-        foreach ($this->session->score as $item)
+        $s_score = $this->session->score;
+        foreach ($s_score as $item)
         {
             if ($item['result'] == "ok")
             {
@@ -74,7 +100,7 @@ class Practice extends CI_Controller
         $this_user = $this_users[0];
 
         // テスト結果をメール送信
-        if (isset($settings['admin_email']))
+        if (isset($settings['admin_email']) && ! empty($s_score))
         {
             $subject = $settings['result_subject'];
             $body = $settings['result_body'];
@@ -89,12 +115,12 @@ class Practice extends CI_Controller
             }
 
             $result_result = '';
-            foreach ($this->session->score as $key => &$val)
+            foreach ($s_score as $key => &$val)
             {
                 $result_result .= '第'.$key.'問目 '.PHP_EOL;
-                $result_result .= '問題 : '.$val['mondai'].' ';
-                $result_result .= '回答 : '.$val['ans'].' ';
-                $result_result .= '正誤 : '.$val['result'].PHP_EOL;
+                $result_result .= '    問題 : '.$val['mondai'].' ';
+                $result_result .= '    回答 : '.$val['ans'].' ';
+                $result_result .= '    正誤 : '.$val['result'].PHP_EOL;
                 $result_result .= PHP_EOL;
             }
             unset($key,$val);
@@ -107,7 +133,7 @@ class Practice extends CI_Controller
         }
 
         // テスト結果を別名セッションに登録
-        $this->session->set_userdata('oldscore', $this->session->score);
+        $this->session->set_userdata('oldscore', $s_score);
 
         // テスト結果をクリア
         $array_items = array('score', 'counts', 'start_time', 'test_id');

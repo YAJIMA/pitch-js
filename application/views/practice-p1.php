@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="<?php echo base_url('css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('css/style.css') . '?v=' . time(); ?>">
 
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru|M+PLUS+Rounded+1c&amp;subset=japanese" rel="stylesheet">
@@ -78,18 +78,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-sm-6 text-center" id="result">
             <img src="<?php echo base_url('img/cat1_smile.png'); ?>" height="200">
             <p class="alert alert-success">せいかい</p>
-            <p>&nbsp;</p>
             <p>そのちょうし！がんばって！</p>
         </div>
         <?php elseif ($result == "ng") : ?>
-        <div class="col-sm-6 text-center" id="result">
+        <div class="col-sm-3 text-center" id="result">
             <img src="<?php echo base_url('img/cat3_1_question.png'); ?>" height="200">
             <p class="alert alert-danger">まちがい</p>
+        </div>
+        <div class="col-sm-6 text-center">
             <?php if ( ! empty($last_mondai_text) && $is_pro === FALSE) : ?>
                 <p style="font-size: 320%;">せいかいは、<span style="font-style: 220%;"><?php echo $last_mondai_text; ?></span></p>
                 <a href="#" class="btn btn-lg btn-warning mb-3" id="play_last_mondai">もういちどきく</a>
             <?php endif; ?>
-            <p>&nbsp;</p>
             <p>つぎのもんだいをよくきいて</p>
         </div>
         <?php endif; ?>
@@ -112,21 +112,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php foreach ($octaves as $octave) : ?>
         <?php if ($this_octave == $octave) : ?>
         <div class="row">
-            <h3>オクターブ&nbsp;<?php echo $octave; ?></h3>
+            <h3 style="font-size: 14px;">オクターブ&nbsp;<?php echo $octave; ?></h3>
         </div>
         <div class="row mb-3">
-            <div class="col-sm-1"><button type="submit" name="ans" value="do<?php echo $octave; ?>" class="btn btn-block btn-secondary">ド</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="cis<?php echo $octave; ?>" class="btn btn-block btn-dark">チス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="re<?php echo $octave; ?>" class="btn btn-block btn-secondary">レ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="es<?php echo $octave; ?>" class="btn btn-block btn-dark">エス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="mi<?php echo $octave; ?>" class="btn btn-block btn-secondary">ミ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="fa<?php echo $octave; ?>" class="btn btn-block btn-secondary">ファ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="fis<?php echo $octave; ?>" class="btn btn-block btn-dark">フィス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="so<?php echo $octave; ?>" class="btn btn-block btn-secondary">ソ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="gis<?php echo $octave; ?>" class="btn btn-block btn-dark">ギス</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="la<?php echo $octave; ?>" class="btn btn-block btn-secondary">ラ</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="b<?php echo $octave; ?>" class="btn btn-block btn-dark">ベー</button></div>
-            <div class="col-sm-1"><button type="submit" name="ans" value="si<?php echo $octave; ?>" class="btn btn-block btn-secondary">シ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="do<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ド</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="cis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">チス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="re<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">レ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="es<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">エス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="mi<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ミ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="fa<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ファ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="fis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">フィス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="so<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ソ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="gis<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">ギス</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="la<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">ラ</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="b<?php echo $octave; ?>" class="btn ansbox btn-block btn-dark">ベー</button></div>
+            <div class="col-sm-2 col-lg-1"><button type="submit" name="ans" value="si<?php echo $octave; ?>" class="btn ansbox btn-block btn-secondary">シ</button></div>
         </div>
         <?php endif; ?>
     <?php endforeach; ?>
