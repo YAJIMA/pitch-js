@@ -44,7 +44,7 @@ class Summaries extends CI_Controller
 
     public function index()
     {
-        $users = $this->Users_model->find(NULL, array('directory' => 'ASC'));
+        $users = $this->Users_model->find(array('is_delete'=>0), array('directory' => 'ASC'));
         $this->data['users'] = $users;
 
         // 今週
@@ -120,7 +120,7 @@ class Summaries extends CI_Controller
 
     public function users()
     {
-        $users = $this->Users_model->find(NULL, array('directory' => 'ASC'));
+        $users = $this->Users_model->find(array('is_delete'=>0), array('directory' => 'ASC'));
         $this->data['users'] = $users;
 
         $this->load->view('_head');
