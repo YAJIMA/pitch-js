@@ -22,10 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-            <h1>生徒設定</h1>
+            <h1>削除済みの生徒一覧</h1>
             <p>設定したい生徒名を見つけたら、設定ボタンを押して、問題を設定してください。</p>
             <p>生徒名がわかる場合は、<kbd>Ctrl</kbd>+<kbd>F</kbd>を押して検索してください。<a href="#" class="text-muted" data-toggle="modal" data-target="#hint01">？</a></p>
-            <p><a href="<?php echo base_url('settings/deleted_users'); ?>" >削除済みの生徒一覧</a></p>
             <!-- Modal -->
             <div class="modal fade" id="hint01" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -49,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
             <!-- /Modal -->
-            <h2>生徒一覧</h2>
+            <h2>削除済みの生徒一覧</h2>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -79,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <h4 class="modal-title">生徒設定</h4>
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     </div>
-                                    <?php echo form_open('settings/users','',array('user_id'=>$user['id'])); ?>
+                                    <?php echo form_open('settings/deleted_users','',array('user_id'=>$user['id'])); ?>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="realname">生徒氏名</label>
@@ -87,10 +86,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <div class="form-group">
                                             <label for="is_delete">
-                                                <input type="checkbox" name="is_delete" id="is_delete" value="1">
+                                                <input type="checkbox" name="is_delete" id="is_delete" value="1" <?php echo ($user['is_delete'] == '1') ? 'checked' : ''; ?>>
                                                 削除
                                             </label>
-                                            <small class="help-text text-muted">生徒を削除する場合は、チェックを入れてください</small>
+                                            <small class="help-text text-muted">生徒を復帰させる場合は、チェックを外してください</small>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

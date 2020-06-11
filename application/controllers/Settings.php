@@ -62,7 +62,7 @@ class Settings extends CI_Controller {
         $tests = $this->Tests_model->find(NULL, array('id'=>'ASC'));
 
         // ユーザ一覧
-        $users = $this->Users_model->find(NULL, array('name'=>'ASC'));
+        $users = $this->Users_model->find(array('is_delete'=>0), array('name'=>'ASC'));
 
         foreach ($users as &$user)
         {
@@ -86,24 +86,77 @@ class Settings extends CI_Controller {
         {
             $user_id = $this->input->post('user_id');
             $realname = $this->input->post('realname');
+            $is_delete = $this->input->post('is_delete');
             $param = array();
 
             if ( ! empty($realname))
             {
-                $param = array('realname' => $this->input->post('realname'));
+                $param['realname'] = $realname;
+            }
 
+            if ( ! empty($is_delete) && $is_delete == '1')
+            {
+                $param['is_delete'] = 1;
+            }
+            else
+            {
+                $param['is_delete'] = 0;
+            }
+
+            if ( count($param) > 0 )
+            {
                 $this->Users_model->update_users($param, array('id' => $user_id));
             }
 
         }
 
         // ユーザ一覧
-        $users = $this->Users_model->find(NULL, array('name'=>'ASC'));
+        $users = $this->Users_model->find(array('is_delete'=>0), array('name'=>'ASC'));
         $this->data['users'] = $users;
 
         $this->load->view('_head', $this->data);
         $this->load->view('_header', $this->data);
         $this->load->view('settings-users', $this->data);
+        $this->load->view('_foot', $this->data);
+    }
+
+    public function deleted_users()
+    {
+        if ( $this->input->method(TRUE) === "POST" )
+        {
+            $user_id = $this->input->post('user_id');
+            $realname = $this->input->post('realname');
+            $is_delete = $this->input->post('is_delete');
+            $param = array();
+
+            if ( ! empty($realname))
+            {
+                $param['realname'] = $realname;
+            }
+
+            if ( ! empty($is_delete) && $is_delete == '1')
+            {
+                $param['is_delete'] = 1;
+            }
+            else
+            {
+                $param['is_delete'] = 0;
+            }
+
+            if ( count($param) > 0 )
+            {
+                $this->Users_model->update_users($param, array('id' => $user_id));
+            }
+
+        }
+
+        // ユーザ一覧
+        $users = $this->Users_model->find(array('is_delete'=>1), array('name'=>'ASC'));
+        $this->data['users'] = $users;
+
+        $this->load->view('_head', $this->data);
+        $this->load->view('_header', $this->data);
+        $this->load->view('settings-deleted-users', $this->data);
         $this->load->view('_foot', $this->data);
     }
 
