@@ -46,14 +46,22 @@ class Enter extends CI_Controller
         $users = $this->Users_model->find($param);
         $this_user_data = $users[0];
 
-        $this->data['user'] = $this_user_data;
-        $this->session->set_userdata($this_user_data);
+        // 2020/6/17 管理画面から消す、だけではなく、URLごと無効にする方法を教えていただけませんか？
+        if ($this_user_data['is_delete'] === '1')
+        {
+            $this->load->view('enter_deleted', $this->data);
+        }
+        else
+        {
+            $this->data['user'] = $this_user_data;
+            $this->session->set_userdata($this_user_data);
 
-        // 問題設定をロード
-        $this->data['test_sets'] = $this->Users_model->find_testset_from_user($this_user_data['id']);
+            // 問題設定をロード
+            $this->data['test_sets'] = $this->Users_model->find_testset_from_user($this_user_data['id']);
 
-        // TODO: ユーザページを表示
-        $this->load->view('enter', $this->data);
+            // TODO: ユーザページを表示
+            $this->load->view('enter', $this->data);
+        }
     }
 
     public function error($kind = NULL)
