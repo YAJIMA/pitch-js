@@ -208,7 +208,7 @@ class Practice extends CI_Controller
             $this->session->set_userdata('score', $score);
 
             // 問題数と回答数が異なっていたら初期化
-            if (count($score) !== $counter)
+            if (is_countable($score) && count($score) !== $counter)
             {
                 $array_items = array('score', 'counts', 'start_time');
                 $this->session->unset_userdata($array_items);
@@ -220,7 +220,7 @@ class Practice extends CI_Controller
         $this->session->set_userdata('counts', $counter);
 
         // 回答が揃ったら、結果ページへ
-        if (count($this->session->score) >= $count)
+        if (is_countable($this->session->score) && count($this->session->score) >= $count)
         {
             // 結果ページへ
             redirect('practice/end1');

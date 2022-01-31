@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-6 text-center">
-            <h3>もんだい.<?php echo count($this->session->score) + 1; ?></h3>
+            <h3>もんだい.<?php echo is_countable($this->session->score) ? count($this->session->score) : 0 + 1; ?></h3>
             <a href="#" class="btn btn-lg btn-danger mb-3" id="play_mondai">もんだいをきく</a>
             <p id="mondai_help_text">ボタンをおして、もんだいをきこう。</p>
         </div>
